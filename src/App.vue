@@ -1,29 +1,36 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  	  <router-view />
+  	  
+  	  
+  	  <tab-comm v-model="selectIndex">
+  	  	  <tabItem-comm v-for="(item, index) in dataList" :key="index"
+        :name="item.name" :icon="item.icon"></tabItem-comm>
+  	  </tab-comm>
   </div>
 </template>
+<script>
+export default {
+	data(){
+		return {
+			dataList: [
+			  {name: '电影', icon: 'iconfont icon-dianying', path: '/movie'},
+        {name: '影院', icon: 'iconfont icon-yingyuana', path: '/cinema'},
+        {name: '我的', icon: 'iconfont icon-wode', path: '/mine'}
+			],
+			selectIndex: 0
+	 } 
+},
+	watch: {
+			  selectIndex(newVal){
+	      let path = this.dataList[newVal].path;
+	      this.$router.push(path);
+    }
+	}
+}
+	
+</script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+
 </style>
