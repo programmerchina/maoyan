@@ -69,6 +69,107 @@ export function filterCiname(){
             if(status != 200){
                 //请求失败
             }
+            console.log(data)
+            resolve(data)
+        })
+        .catch(error=>{
+            //请求失败
+        })
+
+    })
+}
+
+//******************* 
+export function detailMovie(id){
+    return new Promise((resolve, reject)=>{
+        http({
+            url: API.DETAIL_MOVIE_API,
+            method: 'GET',
+            data: {
+            	  movieId: id,
+            }
+        })
+        .then(({data, status})=>{
+            if(status != 200){
+                //请求失败
+            }
+            console.log(data)
+            resolve(data)
+        })
+        .catch(error=>{
+            //请求失败
+        })
+
+    })
+}
+//*********************
+export function update({rad,cid,day,mid}){
+    return new Promise((resolve, reject)=>{
+        http({
+            url: API.FORCEUPDATE_MOVIE_API,
+            method: 'POST',
+            data: {
+                    forceUpdate: rad,
+					cityId: cid,
+					day: day,
+					limit: 20,
+					movieId: mid,
+					offset: 0,				
+					updateShowDay: true
+            }
+        })
+        .then(({data, status})=>{
+            if(status != 200){
+                //请求失败
+            }
+            console.log(data)
+            resolve(data)
+        })
+        .catch(error=>{
+            //请求失败
+        })
+
+    })
+}
+//****************************
+export function tomyMovieId(){
+    return new Promise((resolve, reject)=>{
+        http({
+            url: API.TOMYMOVIEID_API,
+            method: 'GET',
+            data: {
+                  channelId: 4        
+            }
+        })
+        .then(({data, status})=>{
+            if(status != 200){
+                //请求失败
+            }
+            console.log(data)
+            resolve(data)
+        })
+        .catch(error=>{
+            //请求失败
+        })
+
+    })
+}
+//*********************************
+export function cinameDet(mid, cid){
+    return new Promise((resolve, reject)=>{
+        http({
+            url: API.CINAMEDETAIL_API,
+            method: 'GET',
+            data: {
+            	  movieId: mid,
+                  cinemaId: cid
+            }
+        })
+        .then(({data, status})=>{
+            if(status != 200){
+                //请求失败
+            }
+            console.log(data)
             resolve(data)
         })
         .catch(error=>{

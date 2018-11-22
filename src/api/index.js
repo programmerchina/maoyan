@@ -99,6 +99,28 @@ detail影院
     day: 2018-11-17
  */
 const  FILTER_CINAME_API = '/ajax/filterCinemas'
+
+/*
+movieId: 42964 
+ 
+ */
+const  DETAIL_MOVIE_API = 'ajax/detailmovie'
+
+/*
+forceUpdate: 1542605042874
+ */
+const  FORCEUPDATE_MOVIE_API = '/ajax/movie'
+/*
+ channelId: 4  
+ */
+const  TOMYMOVIEID_API = '/ajax/tomyMovieId'
+/*
+ 
+参数：cinemaId： 13046
+    movieId： 42964
+  
+ */
+const  CINAMEDETAIL_API = '/ajax/cinemaDetail'
 export default {
     SAT_HOST,
     UAT_HOST,
@@ -111,5 +133,9 @@ export default {
     CINAMELIST_API,
     CITY_LIST_API,
     SEARCH_CINAME_API,
-    FILTER_CINAME_API
+    FILTER_CINAME_API,
+    DETAIL_MOVIE_API,
+    FORCEUPDATE_MOVIE_API,
+    TOMYMOVIEID_API,
+    CINAMEDETAIL_API
 }

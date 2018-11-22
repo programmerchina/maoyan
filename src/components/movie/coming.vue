@@ -24,10 +24,12 @@
 
 <script>
 import laterlist from '../../common/list/laterlist'
+import loading from '../../common/loading/loading'
 import {getComingList, getExpectativeList, getMoreComingList} from '../../ser/movieService'
 export default {
 	components: {
-		laterlist
+		laterlist,
+		loading
 	},
 	data(){
 		  return {
@@ -73,16 +75,23 @@ export default {
    },
    created(){
 
-			getComingList().then(([result, movieIds])=>{
+			const a = ()=> new Promise((resolve,reject)=>{
+				getComingList().then(([result, movieIds])=>{
 				this.comingList = result;
 				this.listDataId = movieIds
 				console.log(result)
-				
+				   resolve()
+			    })
 			})
-			getExpectativeList().then(expectative=>{
+			const b = ()=> new Promise((resolve,reject)=>{
+				getExpectativeList().then(expectative=>{
 				this.expectativeList = expectative
 				console.log(expectative)
-				
+				   resolve()
+			    })
+			})
+			Promise.all([a() , b()]).then(()=>{
+				this.$center.$emit("ev", false)
 			})
 	}
 	

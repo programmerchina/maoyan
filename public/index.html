@@ -7,12 +7,29 @@
     <title>maoyan</title>
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_916541_rjdx36xi8o.css" />
+    <link rel="stylesheet" href="./font/iconfont.css" />
     <script src="js/getwidth.js"></script>
     <script src="js/iscroll-probe.js"></script>
+    <style>
+    	*{
+    		margin: 0;
+    		padding: 0;
+    	}
+    </style>
   </head>
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script>   	
+    	function getWidth(){
+					var cWidth = document.documentElement.clientWidth;
+					document.documentElement.style.fontSize = cWidth / 3.75 + "px";
+				//	console.log(document.documentElement.style.fontSize);
+				}
+				getWidth()
+//				window.load = getWidth;
+				window.addEventListener("orientationchange",getWidth)
+				window.addEventListener("resize",getWidth)
+    </script>
   </body>
 </html>

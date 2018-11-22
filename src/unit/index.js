@@ -7,7 +7,7 @@ export default function http({url, method, data}){
         url: url,
         method: method,
         baseURL: API.SAT_HOST,
-        timeout: 2000,
+        timeout: 100000,
         withCredentials: false
     };
 

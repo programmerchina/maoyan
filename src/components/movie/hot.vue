@@ -53,7 +53,7 @@ export default {
 				this.listData = [...result]
 				this.listDataId = movieIds;
 				console.log(this.listDataId)
-				
+				this.$center.$emit("ev", false)
 	    })
 	}
 	

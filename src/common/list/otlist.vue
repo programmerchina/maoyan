@@ -1,5 +1,5 @@
 <template>
-	<div class="sert">
+	<div class="sert" @click="queryAction">
 		<p class="sert_one">
 		    <span>{{cinamelist.nm}}</span>
 		    <span>
@@ -12,31 +12,48 @@
 			<span>{{cinamelist.distance}}</span>
 		</div>
 		<div class="sert_three">
-			<span v-for="(item, key) in cinamelist.tag" v-if="item == 1" ></span>
-			
+			<span v-for="(item, key) in cinamelist.tag" v-if="item == 1" :class="{bg: key == 'sell' || key == 'snack'}">{{obj[key]}}</span>
+			<span v-for="(item, index) in cinamelist.tag.hallType">{{item}}</span>
 		</div>
 		<!--<div class="sert_four" v-if="cinamelist.promotion.cardPromotionTag">
 			<img src="../../assets/ciname/ka.png" alt="" />
 			<p>{{cinamelist.promotion.cardPromotionTag}}</p>
 		</div>-->
+		<div class="sert_five">
+			近期场次：{{cinamelist.showTimes}}
+		</div>
 	</div>
 </template>
 <script>
 	export default {
 		name: "list-ot",
 		props: {
-			cinamelist: Object
+			cinamelist: Object,
+			movieId: Number
 		},
 		data(){
 			return {
-				allowRefund: "退",
 				buyout: 0,
 				cityCardTag: 0,
 				deal: 0,
-				endorse: "改签",
-				hallType: ["CGS中国巨幕厅"],
-				sell: "小吃",
-				snack: "折扣卡"
+				obj: {
+					allowRefund: "退",
+					endorse: "改签",
+					hallType: ["CGS中国巨幕厅"],
+					sell: "小吃",
+					snack: "折扣卡"
+				}
+			}
+		},
+		created(){
+			console.log(this.cinamelist)
+		},
+		methods: {
+			queryAction(){
+				let day = new Date();
+				let dat = day.toLocaleDateString().replace(/\//g, '-');
+//				console.log(dat)
+				this.$router.push({name: 'cinameMovie',query: {movieId: this.movieId,data: dat,cinameId: this.cinamelist.id}})
 			}
 		}
 	}
@@ -114,6 +131,10 @@
 				border-radius: 0.02rem;
 				font-size: 0.1rem;
 				margin: 0 0.02rem;
+				&.bg {
+					color: #f90;
+					border: 1px solid #f90;
+				}
 			}
 		}
 		.sert_four {
@@ -131,6 +152,15 @@
 				margin-left: 0;
 				font-size: 0.11rem;
 			}
+		}
+		.sert_five {
+			padding: 0 0.15rem 0 0;
+			margin-right: -0.15rem;
+			line-height: 1.5;
+			font-size: 0;
+			height: 0.18rem;
+			font-size: 0.14rem;
+			color: #777;
 		}
 	}
 </style>

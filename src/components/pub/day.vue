@@ -1,7 +1,7 @@
 <template>
-	<div class="day">
-		<ul class="day_ul" :style="{width: wid}">
-			<li v-for="(item, index) in len">今天{{getdata[1]}}月{{getdata[2]}}日</li>
+	<div class="day swiper-container">
+		<ul class="day_ul swiper-wrapper" :style="{width: wid}">
+			<li class="swiper-slide" v-for="item in 7">{{item<=3?date[item-1]:day[num+item-1>6?num:num+item-1]}}{{getdata[1]}}月{{Number(getdata[2])+item-1}}日</li>
 
 		</ul>
 	</div>
@@ -11,12 +11,15 @@
 export default {
 	data(){
 		return {
-			len: ['1','2','3','4','6','7','8']
+			len: 7,
+			date: ["今天","明天","后天"],
+			day: ["周日","周一","周二","周三","周四","周五","周六"],
+			num: 0
 		}
 	},
 	computed: {
 		wid(){
-			return this.len.length*1.15 + "rem"
+			return 7*1.25 + "rem"
 		},
 		getdata(){
    	     	var day = new Date();
@@ -25,7 +28,15 @@ export default {
    	    }
 	},
 	created(){
-		console.log(this.getdata)
+		let gday = new Date()
+		gday = gday.getDay()
+		this.num = gday
+		console.log(gday)	
+	},
+	moutend(){
+		var mySwiper = new Swiper('.swiper-container', {
+			virtual: true,
+        })
 	}
 }
 </script>

@@ -51,11 +51,12 @@
 			}
 		},
 		created(){
-//			console.log(this.data)
+			console.log(this.data)
 		},
 		methods: {
 			djAction(){
-				this.$center.$emit("aAction",'aa')
+				this.$center.$emit("aAction",this.data.id)
+				console.log(this.data.id)
 			}
 		}		
 	}

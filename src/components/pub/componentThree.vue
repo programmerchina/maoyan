@@ -19,6 +19,8 @@ import {mapMutations} from 'vuex'
     			})
     			this.changeCity(this.city.nm)
     			this.changeCityId(this.city.id)
+    			localStorage.city = this.city.nm
+    			localStorage.cityID = this.city.id		
     			console.log(this.city.nm)
     			console.log(this.city)
     		},

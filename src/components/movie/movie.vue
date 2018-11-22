@@ -1,19 +1,20 @@
 <template>
 <div>
 	<div class="movie">
-	    <header-comm :num="num"></header-comm>
+	    <header-comm></header-comm>
 	    <div>
 		    <header>
 		    	<span @click="select">
 		    		{{city}}
 		    	</span>
-		   	    <div v-for="(item, index) in dataList" v-text="item" :class="{active: index == setIndex}" @click="setAction(index)"></div>
+		   	    <div v-for="(item, index) in dataList" v-text="item" :class="{active: index == setIndex}" @click="setAction(index)" ></div>
 		   	    <span @click="serachAction">
 		   	    	<img src="../../assets/search.png" alt="" />
 		   	    </span>
 		    </header>
+		    <loading class="load" v-show="isFlag == true"></loading>
 			<keep-alive>
-		       <component :is="hcom[setIndex]"></component>
+		       <component :is="hcom[setIndex]" v-show="isFlag == false"></component>
 		    </keep-alive>
        </div> 
 	</div>
@@ -26,17 +27,20 @@ import vue from 'vuex'
 import Hot from './hot'
 import Coming from './coming'
 import {mapState} from 'vuex'
+import loading from '../../common/loading/loading'
 export default {
 	components: {
 		Hot,
-		Coming
+		Coming,
+		loading
 	},
 		data(){
 			return {
 			    dataList: ['正在热映', '即将上映'],
 			    setIndex: 0,
 			    hcom: ["hot", "Coming"],
-			    num: 0	  
+			    num: 0,
+			    isFlag: true
 			}
 		},
 		computed: {
@@ -53,9 +57,9 @@ export default {
 		methods: {
 			setAction(index){
 				this.setIndex = index
-				console.log(vue)
-				console.log(this.city)
-				console.log(this.$store)
+//				console.log(vue)
+//				console.log(this.city)
+//				console.log(this.$store)
 			},
 			serachAction(){
 				this.$router.push({name: 'search'})
@@ -64,13 +68,19 @@ export default {
 				this.$router.push({
 					name: "addr"
 				})
-			}
+			},
 		},
 		created(){
-			this.$center.$on("aAction", (val)=>{
+			this.$center.$on("aAction", id=>{
 				this.$router.push({
-					name: 'movieDetail'
+					name: 'movieDetail',
+					params: {
+						movieId: id
+					}
 				})
+			})
+			this.$center.$on("ev", fl=>{
+				this.isFlag = fl 
 			})
 		}
 	}
@@ -83,6 +93,13 @@ export default {
 	top: 0;
 	left: 0;
 	bottom: 0.49rem;
+	.load {
+		position: absolute;
+		left: 50%;
+		top: 88px;
+		z-index: 4;
+		transform: translateX(-50%);
+	}
 	header{
 		width: 100%;
 		height: 0.44rem;

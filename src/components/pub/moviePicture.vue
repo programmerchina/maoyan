@@ -1,6 +1,6 @@
 <template>
-    <div class="picture">
-    	<div class="bg" style="background-image:url(//p0.meituan.net/71.100/movie/363e3a7e614d29b2847ff4e62afcd3f42168651.jpg)">
+    <div class="picture" v-cloak>
+    	<div class="bg">
     		
     	</div>
     	<div class="mb">
@@ -8,27 +8,30 @@
     	</div>
         <div class="detail">
         	<div class="left">
-        		
+        		<img :src="img" alt="" />
         	</div>
         	<div class="right">
         		<div class="one">
-        			毒液：致命守护者
+        			{{detail.nm}}
         		</div>
         		<div class="two">
-        			XXXXXX
+        			{{detail.enm}}
         		</div>
-        		<div class="three">
-        			<span>9.3</span>
-        			<span class="pl">(53.2万人评)</span>
+        		<div class="three" v-if="detail.sc != 0">
+        			<span>{{detail.sc}}</span>
+        			<span class="pl" v-cloak>{{parseInt(detail.snum/1000)/10}}万人评</span>
+        		</div>
+        		<div class="three" v-else-if="detail.sc == 0">
+        			<span>{{detail.wish}}人想看</span>
         		</div>
         		<div class="four">
-        			动作,惊悚,科幻
+        			{{detail.cat}}
         		</div>
-        		<div class="five">
-        			美国/107分钟
+        		<div class="five" v-cloak>
+        			{{detail.src}}{{'/'+ detail.dur + '分钟'}}
         		</div>
         		<div class="six">
-        			2018-11-09大陆上映
+        			{{detail.pubDesc}}
         		</div>
         	</div>
         </div>
@@ -37,7 +40,25 @@
 
 <script>
 export default {
+	data(){
+		return {
+			detail: '',
+			img: '',
+			cinames: ''
+		}
+	},
+	created(){
+			this.$center.$on('val', value=>{
+				this.detail = value
+				this.img = this.detail.img.replace(/\w.h/, '148.208')
+				console.log(this.detail)
+			})
+			this.$center.$on('cin', value=>{
+				this.cinames = value
+				console.log(value)
 	
+			})
+	}
 }	
 </script>
 
@@ -49,6 +70,9 @@ export default {
 	position: absolute;
 	top: 0.44rem;
 	left: 0;
+	[v-cloak]{
+    display: none;
+   }
 	.bg {
 		width: 100%;
 		height: 100%;
@@ -69,19 +93,24 @@ export default {
 		background-color: #333;
 	}
 	.detail {
-		height: 100%;
+		
 		display: flex;
 		justify-content: flex-start;
         padding: 0.19rem 0.3rem 0.19rem 0.15rem;
         .left {
         	width: 1.1rem;
         	height: 1.5rem;
-        	background: #fff;
+        	/*background: #fff;*/
+        	img {
+        		width: 100%;
+        		height: 100%;
+        	}
         }
         .right{
         	flex: 1;
         	padding-left: 0.12rem;
         	.one {
+        		width: 100%;
         		font-size: 0.2rem;
 				font-weight: 700;
 				overflow: hidden;
@@ -89,15 +118,24 @@ export default {
 				white-space: nowrap;
 				color: #fff;
 				transform: translateY(-0.06rem);
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
         	}
         	.two {
+        		width: 2.0rem;
         		margin-top: 0.02rem;
 			    font-size: 0.12rem;
 			    color: #fff;
 			    opacity: .8;
+			    text-overflow: ellipsis;
+			    overflow: hidden;
+			    white-space: nowrap;
 			
         	}
         	.three {
+        		width: 100%;
+        		
                   font-size: 0.18rem;
 				  font-weight: 700;
 				  color: #fc0;
@@ -110,16 +148,29 @@ export default {
 					white-space: nowrap;
 					font-weight: 700;
 					margin-left: 0.1rem;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					white-space: nowrap;
 				}        		
         	}
         	.four {
+        		width: 100%;
+        		
 				letter-spacing: 0.03rem;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
         	}
         	.five, .six, .four {
+        		width: 100%;
+        		
         		margin-top: 0.1rem;
 				font-size: 0.12rem;
 				color: #fff;
 				opacity: .8;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
         	}
         }
 	}

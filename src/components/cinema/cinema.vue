@@ -1,7 +1,7 @@
 <template>
 	<div class="movie">
 		<div>
-	   <header-comm :num="num"></header-comm>
+	   <header-comm></header-comm>
 	   <div class="cinema_s">
 	   	   <span class="sp" @click="action">
 		          {{city}}
