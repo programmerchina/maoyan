@@ -30,9 +30,7 @@
 	import {mapState} from 'vuex'
 	import loading from '../../common/loading/loading'
 	export default {
-		props: {
-			movieId: Number
-		},
+		props: ["movieId"],
 		name: 'movie-detail',
 		data(){
 			return {

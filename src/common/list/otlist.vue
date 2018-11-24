@@ -27,10 +27,7 @@
 <script>
 	export default {
 		name: "list-ot",
-		props: {
-			cinamelist: Object,
-			movieId: Number
-		},
+		props: ["cinamelist","movieId"],
 		data(){
 			return {
 				buyout: 0,
@@ -53,7 +50,7 @@
 				let day = new Date();
 				let dat = day.toLocaleDateString().replace(/\//g, '-');
 //				console.log(dat)
-				this.$router.push({name: 'cinameMovie',query: {movieId: this.movieId,data: dat,cinameId: this.cinamelist.id}})
+				this.$router.push({name: 'cinameMovie',query: {movieId: this.movieId,data: dat,cinameId: this.cinamelist.id,pri: this.cinamelist.sellPrice}})
 			}
 		}
 	}

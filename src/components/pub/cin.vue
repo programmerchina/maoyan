@@ -2,34 +2,68 @@
 	<div class="cin">
 		<div class="in">
 			<div class="one">
-				<span class="one_one">17:50</span>
-				<span class="two_two"><i>19:37</i>散场</span>
+				<span class="one_one">{{detail.tm}}</span>
+				<span class="two_two"><i>{{tim}}</i>散场</span>
 			</div>
 			<div class="two">
-				<span class="spa_one">英语&nbsp;3D</span>
-				<span class="spa_two">3号厅</span>
+				<span class="spa_one">{{detail.lang}}&nbsp;{{detail.tp}}</span>
+				<span class="spa_two">{{detail.th}}</span>
 			</div>
 			<div class="three">
 				<div class="pri_one">
 					<span class="seller">
 						<em style="font-size: 0.11rem;">￥</em>
-						<em>28</em>
+						<em>{{pri}}</em>
 					</span>
 					<span class="rig">
-						<div class="m">折扣卡</div>
-						<div class="g">￥20</div>
+						<div class="m">{{detail.vipPriceName}}</div>
+						<div class="g">￥{{detail.vipPrice}}</div>
 					</span>
 				</div>
-				<div class="pri_two"></div>
+				<div class="pri_two">
+					{{detail.extraDesc}}
+				</div>
 			</div>
-			<div class="four"></div>
+			<div class="four">
+				<div class="btn">
+					购票
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
 export default {
-	
+	props: ["detail","timed","pri"],
+	data(){
+		return {
+			timedd: 0
+		}
+	},
+	computed: {
+		tim(){
+			this.timedd = this.timed
+			let hour = parseInt(this.timedd/60)
+			let min = parseInt(this.timedd%60*100)/100
+			let tarr = this.detail.tm.split(":")
+			hour = hour + Number(tarr[0])
+			min = min + Number(tarr[1])
+			if(min>=60){
+				min = min%60<10?"0"+min%60:min%60
+				hour += 1
+			}
+			if(hour>=24){
+				hour = "00"
+			}
+			return hour + ":" + min
+		}
+	},
+	created(){
+//		console.log(this.detail)
+		
+	},
+
 }	
 </script>
 
@@ -72,7 +106,6 @@ em {
     	}
     	.two {
     		margin-left: 0.17rem;
-			overflow-x: hidden;
 			width: 0.96rem;
 			height: 100%;
 			display: flex;
@@ -113,7 +146,6 @@ em {
 					font-size: 0.19rem;
 				}
 				.rig {
-					width: 0.54rem;
 					height: 0.14rem;
 					margin-top: 0.04rem;
 					margin-left: 0.03rem;
@@ -132,7 +164,7 @@ em {
                         font-size: 0.1rem;
 					}
 					.g {
-						flex: 1;
+						padding: 0 0.02rem;
 						font-size: 0.1rem;
 					}
 					
@@ -140,10 +172,23 @@ em {
 			}
 			.pri_two {
 				flex: 1;
+				margin-top: 0.05rem;
+				font-size: 0.11rem;
+				color: #999;
 			}
     	}
     	.four {
     		flex: 1;
+    		.btn {
+    			width: 0.45rem;
+    			height: 0.27rem;
+    			line-height: 0.28rem;
+				font-size: 0.12rem;
+				background-color: #f03d37;
+				color: #fff;
+				border-radius:0.04rem;
+				text-align: center;
+    		}
     	}
     }
 }	
